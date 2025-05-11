@@ -1,0 +1,1 @@
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBrAhlrlXVqZ+gtEkQlAbYbMZ7df1ZsH5OHYCBEdXqIG maganagonzalosegovia@gmail.com
