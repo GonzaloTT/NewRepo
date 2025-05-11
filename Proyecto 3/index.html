@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Campo Vectorial - Hongos A y B</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f8f8f8;
+      }
+      #grafica {
+        width: 100%;
+        max-width: 700px;
+        height: 600px;
+        margin: auto;
+      }
+      h2 {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Campo vectorial del sistema de hongos A y B</h2>
+    <div id="grafica"></div>
+
+    <script>
+      // Crear puntos en una cuadrícula
+      let x = [];
+      let y = [];
+      let u = [];
+      let v = [];
+
+      for (let i = 0; i <= 10; i++) {
+        for (let j = 0; j <= 10; j++) {
+          let a = i / 10;
+          let b = j / 10;
+
+          x.push(a);
+          y.push(b);
+
+          // Sistema:
+          // a' = 0.8a - 0.1b
+          // b' = -0.2a + 0.9b
+          let da = 0.8 * a - 0.1 * b;
+          let db = -0.2 * a + 0.9 * b;
+
+          // Normalizar para que las flechas sean proporcionales
+          let mag = Math.sqrt(da * da + db * db);
+          u.push(da / mag);
+          v.push(db / mag);
+        }
+      }
+
+      // Crear los datos para el gráfico de líneas
+      let xLine = [];
+      let yLine = [];
+      for (let i = 0; i < x.length; i++) {
+        xLine.push(x[i] + u[i] * 0.1); // Aumentamos un poco el valor para que se vea la dirección
+        yLine.push(y[i] + v[i] * 0.1); // Similar al valor anterior
+      }
+
+      const trace = {
+        type: "scatter",
+        mode: "lines",
+        x: x.concat(xLine),
+        y: y.concat(yLine),
+        line: {
+          color: "blue",
+          width: 1,
+        },
+      };
+
+      const layout = {
+        xaxis: { title: "a(t)" },
+        yaxis: { title: "b(t)" },
+        margin: { t: 20 },
+      };
+
+      Plotly.newPlot("grafica", [trace], layout);
+    </script>
+  </body>
+</html>
